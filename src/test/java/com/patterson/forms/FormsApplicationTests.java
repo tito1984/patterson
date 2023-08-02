@@ -6,6 +6,7 @@ import static com.patterson.forms.Data.*;
 
 import com.patterson.forms.entities.Answer;
 import com.patterson.forms.entities.Form;
+import com.patterson.forms.exceptions.ResourceNotFoundException;
 import com.patterson.forms.repositories.dtos.AnswerRepository;
 import com.patterson.forms.repositories.dtos.FormRepository;
 import com.patterson.forms.repositories.dtos.UserRepository;
@@ -30,8 +31,8 @@ class FormsApplicationTests {
 	@MockBean
 	AnswerRepository answerRepository;
 
-	@Autowired
-	UserService userService;
+//	@Autowired
+//	UserService userService;
 	@Autowired
 	FormService formService;
 	@Autowired
@@ -48,22 +49,25 @@ class FormsApplicationTests {
 
 	@Test
 	void testGetFormToAnswer() {
-		List<Form> data = Arrays.asList(form001().orElseThrow(), form002().orElseThrow());
+		Form form1 = form001().orElseThrow();
+		Form form2 = form002().orElseThrow();
+		List<Form> data = Arrays.asList(form1, form2);
 		when(formRepository.findAll()).thenReturn(data);
 
 		List<Form> forms = formService.findAll();
 
 		assertFalse(forms.isEmpty());
 		assertEquals(forms.size(), 2);
-		assertTrue(forms.contains(form001().orElseThrow()));
-		assertTrue(forms.contains(form002().orElseThrow()));
+		assertTrue(forms.contains(form1));
+		assertTrue(forms.contains(form2));
 		verify(formRepository).findAll();
 	}
 
 	@Test
 	void testSaveAnswers() {
 		Answer newAnswer = new Answer(null,"Left",
-				user001().orElseThrow(),form001().get().getQuestion());
+				user001().get(),form001().get().getQuestion());
+		when(userRepository.findById(1L)).thenReturn(user001());
 		when(answerRepository.save(any())).then(invocation -> {
 			Answer a = invocation.getArgument(0);
 			a.setId(1L);
@@ -76,6 +80,20 @@ class FormsApplicationTests {
 		assertEquals(answer.getAnswer(), "Left");
 		assertEquals(answer.getQuestion(), form001().get().getQuestion());
 		verify(answerRepository).save(newAnswer);
+		verify(userRepository).findById(user001().get().getId());
+	}
+
+	@Test
+	void testSaveAnswersUserNotFoundException() {
+		Answer newAnswer = new Answer(null,"Left",
+				user001().orElseThrow(),form001().get().getQuestion());
+
+		when(userRepository.findById(1L)).thenThrow(new ResourceNotFoundException(1L));
+
+		assertThrows(ResourceNotFoundException.class,() -> {
+			answerService.save(newAnswer);
+		});
+		verify(userRepository).findById(1L);
 	}
 
 }

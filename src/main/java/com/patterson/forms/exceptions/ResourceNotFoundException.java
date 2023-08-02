@@ -8,7 +8,10 @@ public class ResourceNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    private Long idRecurse;
+
     public ResourceNotFoundException(Long idRecurse) {
         super(String.format("%s was not found", idRecurse));
+        this.idRecurse = idRecurse;
     }
 }
