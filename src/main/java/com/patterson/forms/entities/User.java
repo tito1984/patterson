@@ -3,6 +3,8 @@ package com.patterson.forms.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -19,14 +21,14 @@ public class User {
     private Role role;
 
     @JsonBackReference
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Answer answer;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answers = new ArrayList<>();
 
-    public User(Long id, String name, Role role, Answer answer) {
+    public User(Long id, String name, Role role, List<Answer> answers) {
         this.id = id;
         this.name = name;
         this.role = role;
-        this.answer = answer;
+        this.answers = answers;
     }
 
     public User() {
@@ -56,11 +58,11 @@ public class User {
         this.role = role;
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public List<Answer> getAnswer() {
+        return answers;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
+    public void setAnswer(List<Answer> answers) {
+        this.answers = answers;
     }
 }
