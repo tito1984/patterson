@@ -1,8 +1,8 @@
 package com.patterson.forms.services;
 
-import com.patterson.forms.entities.Answer;
+import com.patterson.forms.dtos.AnswerDto;
 
 public interface AnswerService {
 
-    Answer save(Answer answer);
+    AnswerDto save(Long id, AnswerDto answerDto);
 }

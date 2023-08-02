@@ -1,5 +1,7 @@
 package com.patterson.forms.entities;
 
+import com.patterson.forms.dtos.AnswerDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,9 +25,6 @@ public class Answer {
         this.answer = answer;
         this.user = user;
         this.question = question;
-    }
-
-    public Answer(long id, java.lang.String right, User user, String question) {
     }
 
     public Long getId() {
@@ -58,5 +57,11 @@ public class Answer {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public Answer(User user, AnswerDto answerDto) {
+        this.answer = answerDto.getAnswer();
+        this.question = answerDto.getQuestion();
+        this.user = user;
     }
 }

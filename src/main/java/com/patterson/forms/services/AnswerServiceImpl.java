@@ -1,5 +1,6 @@
 package com.patterson.forms.services;
 
+import com.patterson.forms.dtos.AnswerDto;
 import com.patterson.forms.entities.Answer;
 import com.patterson.forms.entities.User;
 import com.patterson.forms.exceptions.ResourceNotFoundException;
@@ -17,10 +18,10 @@ public class AnswerServiceImpl implements AnswerService {
     private UserRepository userRepository;
 
     @Override
-    public Answer save(Answer answer) {
-        Long id = answer.getUser().getId();
-        userRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(answer.getUser().getId()));
-        return answerRepository.save(answer);
+    public AnswerDto save(Long id, AnswerDto answerDto) {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(id));
+        answerRepository.save(new Answer(user, answerDto));
+        return answerDto;
     }
 }
