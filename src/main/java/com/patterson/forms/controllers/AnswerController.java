@@ -1,7 +1,6 @@
 package com.patterson.forms.controllers;
 
 import com.patterson.forms.dtos.AnswerDto;
-import com.patterson.forms.entities.Answer;
 import com.patterson.forms.exceptions.ResourceNotFoundException;
 import com.patterson.forms.services.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;

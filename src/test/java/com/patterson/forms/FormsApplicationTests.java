@@ -14,7 +14,6 @@ import com.patterson.forms.repositories.dtos.FormRepository;
 import com.patterson.forms.repositories.dtos.UserRepository;
 import com.patterson.forms.services.AnswerService;
 import com.patterson.forms.services.FormService;
-import com.patterson.forms.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,10 +38,6 @@ class FormsApplicationTests {
 	AnswerService answerService;
 
 	@Test
-	void contextLoads() {
-	}
-
-	@Test
 	void testGetAll() {
 		Form form1 = form001().orElseThrow();
 		Form form2 = form002().orElseThrow();
@@ -52,7 +47,7 @@ class FormsApplicationTests {
 		List<FormDto> forms = formService.findAll();
 
 		assertFalse(forms.isEmpty());
-		assertEquals(forms.size(), 2);
+		assertEquals(2,forms.size());
 		assertEquals(forms.get(0).getQuestion(), form1.getQuestion());
 		assertEquals(forms.get(1).getQuestion(), form2.getQuestion());
 		verify(formRepository).findAll();
@@ -60,7 +55,7 @@ class FormsApplicationTests {
 
 	@Test
 	void testSaveAnswers() {
-		AnswerDto newAnswer = new AnswerDto(form001().get().getQuestion(), "Left");
+		AnswerDto newAnswer = new AnswerDto(form001().orElseThrow().getQuestion(), "Left");
 		when(userRepository.findById(1L)).thenReturn(user001());
 		when(answerRepository.save(any())).then(invocation -> {
 			Answer a = invocation.getArgument(0);
@@ -68,23 +63,21 @@ class FormsApplicationTests {
 			return a;
 		});
 
-		AnswerDto answerDto = answerService.save(user001().get().getId(), newAnswer);
+		AnswerDto answerDto = answerService.save(user001().orElseThrow().getId(), newAnswer);
 
-		assertEquals(answerDto.getAnswer(), "Left");
-		assertEquals(answerDto.getQuestion(), form001().get().getQuestion());
+		assertEquals("Left",answerDto.getAnswer());
+		assertEquals(answerDto.getQuestion(), form001().orElseThrow().getQuestion());
 		verify(answerRepository).save(any());
-		verify(userRepository).findById(user001().get().getId());
+		verify(userRepository).findById(user001().orElseThrow().getId());
 	}
 
 	@Test
 	void testSaveAnswersUserNotFoundException() {
-		AnswerDto newAnswer = new AnswerDto("Left",form001().get().getQuestion());
+		AnswerDto newAnswer = new AnswerDto("Left",form001().orElseThrow().getQuestion());
 
 		when(userRepository.findById(1L)).thenThrow(new ResourceNotFoundException(1L));
 
-		assertThrows(ResourceNotFoundException.class,() -> {
-			answerService.save(1L, newAnswer);
-		});
+		assertThrows(ResourceNotFoundException.class,() -> answerService.save(1L, newAnswer));
 		verify(userRepository).findById(1L);
 	}
 

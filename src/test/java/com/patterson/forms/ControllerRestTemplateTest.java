@@ -21,7 +21,7 @@ import java.util.Map;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ControllerRestTemplateTest {
+class ControllerRestTemplateTest {
 
     @Autowired
     private TestRestTemplate client;

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
-public class IntegrationJpaTest {
+class IntegrationJpaTest {
 
     @Autowired
     UserRepository userRepository;
@@ -31,7 +31,7 @@ public class IntegrationJpaTest {
         Optional<User> user = userRepository.findById(1L);
 
         assertTrue(user.isPresent());
-        assertEquals(user.get().getName(), "Pere");
+        assertEquals("Pere", user.get().getName());
     }
 
     @Test
@@ -39,18 +39,18 @@ public class IntegrationJpaTest {
         List<Form> forms = formRepository.findAll();
 
         assertFalse(forms.isEmpty());
-        assertEquals(forms.size(), 2);
+        assertEquals(2, forms.size());
     }
 
     @Test
     void testSaveAnswer() {
         Answer answerToSave = new Answer(null, "Right",
-                user001().orElseThrow(),form001().get().getQuestion());
+                user001().orElseThrow(),form001().orElseThrow().getQuestion());
 
         Answer answer = answerRepository.save(answerToSave);
 
-        assertEquals("Right", answer.getAnswer());
-        assertEquals(form001().get().getQuestion(), answer.getQuestion());
-        assertEquals(user001().get().getId(), answer.getUser().getId());
+        assertEquals("Right", answer.getAnswerQuestion());
+        assertEquals(form001().orElseThrow().getQuestion(), answer.getQuestion());
+        assertEquals(user001().orElseThrow().getId(), answer.getUser().getId());
     }
 }
