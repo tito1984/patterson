@@ -10,24 +10,20 @@ import java.util.List;
 @Table(name = "forms")
 public class Form {
 
-    public enum Type { PADEL_POS, PREF_ARM }
-
-    @Id
+        @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String code;
+    private String question;
 
-    private Type type;
 
     @JsonBackReference
     @OneToMany(mappedBy = "form", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
 
-    public Form(Long id, String code, Type type, List<Answer> answers) {
+    public Form(Long id, String question, List<Answer> answers) {
         this.id = id;
-        this.code = code;
-        this.type = type;
+        this.question = question;
         this.answers = answers;
     }
 
@@ -42,20 +38,12 @@ public class Form {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public List<Answer> getAnswer() {
@@ -66,7 +54,8 @@ public class Form {
         this.answers = answers;
     }
 
-    public static String createToUser(Long userId, Type type) {
-        return type.name()+userId;
+    public String getPartialCode() {
+        return this.question.substring(0,4);
     }
+
 }
