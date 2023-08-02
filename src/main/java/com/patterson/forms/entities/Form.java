@@ -13,28 +13,22 @@ public class Form {
 
     private String question;
 
-    public Form(Long id, String question) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User toUser;
+
+    public Form(Long id, String question, User touser) {
         this.id = id;
         this.question = question;
+        this.toUser = touser;
     }
 
-    public Form() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public User getToUser() {
+        return toUser;
     }
 
     public String getQuestion() {
         return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
     }
 
 }

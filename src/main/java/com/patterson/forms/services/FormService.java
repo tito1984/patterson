@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface FormService {
 
-    List<FormDto> findAll();
+    List<FormDto> findByToUser(Long id);
 }

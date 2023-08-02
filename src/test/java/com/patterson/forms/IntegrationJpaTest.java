@@ -6,9 +6,9 @@ import static com.patterson.forms.Data.*;
 import com.patterson.forms.entities.Answer;
 import com.patterson.forms.entities.Form;
 import com.patterson.forms.entities.User;
-import com.patterson.forms.repositories.dtos.AnswerRepository;
-import com.patterson.forms.repositories.dtos.FormRepository;
-import com.patterson.forms.repositories.dtos.UserRepository;
+import com.patterson.forms.repositories.AnswerRepository;
+import com.patterson.forms.repositories.FormRepository;
+import com.patterson.forms.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -35,11 +35,23 @@ class IntegrationJpaTest {
     }
 
     @Test
-    void testFindAllForm() {
-        List<Form> forms = formRepository.findAll();
+    void testFindAllFormFromUser() {
+        List<Form> forms = formRepository.findByToUser(user001().orElseThrow());
 
         assertFalse(forms.isEmpty());
         assertEquals(2, forms.size());
+    }
+
+    @Test
+    void testFindByToUserAndQuestion() {
+        User user = user001().orElseThrow();
+        Form form = formRepository.findByToUserAndQuestion(
+                user, form001().orElseThrow().getQuestion()
+        ).orElseThrow();
+
+        assertEquals(form001().orElseThrow().getQuestion(), form.getQuestion());
+        assertEquals(user.getName(),form.getToUser().getName());
+        assertEquals(user.getId(),form.getToUser().getId());
     }
 
     @Test

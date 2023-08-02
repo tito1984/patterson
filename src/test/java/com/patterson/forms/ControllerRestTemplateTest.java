@@ -28,7 +28,9 @@ class ControllerRestTemplateTest {
 
     @Test
     void testFindAllForms() {
-        ResponseEntity<FormDto[]> response = client.getForEntity("/forms",FormDto[].class);
+        Map<String,Long> pathVariable = new HashMap<>();
+        pathVariable.put("id", 1L);
+        ResponseEntity<FormDto[]> response = client.getForEntity("/forms/1",FormDto[].class,pathVariable);
         List<FormDto> forms = Arrays.asList(response.getBody());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -38,7 +40,7 @@ class ControllerRestTemplateTest {
 
     @Test
     void testSaveAnswer() {
-        AnswerDto answerDto = new AnswerDto("Whats your name?", "Pere");
+        AnswerDto answerDto = new AnswerDto("What is your favorite position?", "Pere");
         Map<String,Long> pathVariable = new HashMap<>();
         pathVariable.put("id", 1L);
 
@@ -48,7 +50,7 @@ class ControllerRestTemplateTest {
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
-        assertEquals("Whats your name?",answerDtoResponse.getQuestion());
+        assertEquals("What is your favorite position?",answerDtoResponse.getQuestion());
         assertEquals("Pere",answerDtoResponse.getAnswer());
     }
 

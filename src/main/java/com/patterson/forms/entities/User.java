@@ -16,41 +16,35 @@ public class User {
 
     private String name;
 
-
     @JsonBackReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
 
-    public User(Long id, String name, List<Answer> answers) {
+    @JsonBackReference
+    @OneToMany(mappedBy = "toUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Form> forms = new ArrayList<>();
+
+
+    public User(Long id, String name, List<Answer> answers, List<Form> forms) {
         this.id = id;
         this.name = name;
         this.answers = answers;
-    }
-
-    public User() {
+        this.forms = forms;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<Form> getForms() {
+        return forms;
     }
 
-    public List<Answer> getAnswer() {
-        return answers;
-    }
-
-    public void setAnswer(List<Answer> answers) {
-        this.answers = answers;
+    public void setForms(List<Form> forms) {
+        this.forms = forms;
     }
 }

@@ -15,4 +15,8 @@ public class ResourceNotFoundException extends RuntimeException {
         super(String.format("%s was not found", idRecurse));
     }
 
+    public ResourceNotFoundException(String stringRecurse) {
+        super(String.format("%s was not found", stringRecurse));
+    }
+
 }
