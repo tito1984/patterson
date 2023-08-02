@@ -26,9 +26,9 @@ public class Data {
     }
 
     public static Optional<Answer> answer001() {
-        return Optional.of(new Answer(1L, "Right", user001().orElseThrow(),form001().orElseThrow()));
+        return Optional.of(new Answer(1L, "Right", user001().orElseThrow(),form001().get().getQuestion()));
     }
     public static Optional<Answer> answer002() {
-        return Optional.of(new Answer(1L, "Left", user001().orElseThrow(),form002().orElseThrow()));
+        return Optional.of(new Answer(1L, "Left", user001().orElseThrow(),form002().get().getQuestion()));
     }
 }
