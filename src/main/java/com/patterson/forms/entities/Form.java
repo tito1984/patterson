@@ -14,14 +14,14 @@ public class Form {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String question;
+    private java.lang.String question;
 
 
     @JsonBackReference
     @OneToMany(mappedBy = "form", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
 
-    public Form(Long id, String question, List<Answer> answers) {
+    public Form(Long id, java.lang.String question, List<Answer> answers) {
         this.id = id;
         this.question = question;
         this.answers = answers;
@@ -38,11 +38,11 @@ public class Form {
         this.id = id;
     }
 
-    public String getQuestion() {
+    public java.lang.String getQuestion() {
         return question;
     }
 
-    public void setQuestion(String question) {
+    public void setQuestion(java.lang.String question) {
         this.question = question;
     }
 
@@ -54,7 +54,7 @@ public class Form {
         this.answers = answers;
     }
 
-    public String getPartialCode() {
+    public java.lang.String getPartialCode() {
         return this.question.substring(0,4);
     }
 

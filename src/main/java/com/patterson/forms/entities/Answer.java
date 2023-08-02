@@ -1,6 +1,7 @@
 package com.patterson.forms.entities;
 
 import javax.persistence.*;
+import java.lang.String;
 
 @Entity
 @Table(name = "answers")
@@ -16,18 +17,16 @@ public class Answer {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id", nullable = false)
-    private Form form;
+    private String question;
 
-    public Answer(Long id, String answer, User user, Form form) {
+    public Answer(Long id, String answer, User user, String question) {
         this.id = id;
         this.answer = answer;
         this.user = user;
-        this.form = form;
+        this.question = question;
     }
 
-    public Answer() {
+    public Answer(long id, java.lang.String right, User user, String question) {
     }
 
     public Long getId() {
@@ -38,11 +37,11 @@ public class Answer {
         this.id = id;
     }
 
-    public String getAnswer() {
+    public java.lang.String getAnswer() {
         return answer;
     }
 
-    public void setAnswer(String answer) {
+    public void setAnswer(java.lang.String answer) {
         this.answer = answer;
     }
 
@@ -54,11 +53,11 @@ public class Answer {
         this.user = user;
     }
 
-    public Form getForm() {
-        return form;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setForm(Form form) {
-        this.form = form;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 }
