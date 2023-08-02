@@ -9,13 +9,13 @@ import java.util.Optional;
 public class Data {
 
     public static Optional<User> user001() {
-        return Optional.of(new User(1L, "Pere", User.Role.ADM, null));
+        return Optional.of(new User(1L, "Pere", null));
     }
     public static Optional<User> user002() {
-        return Optional.of(new User(1L, "David", User.Role.USR, null));
+        return Optional.of(new User(1L, "David", null));
     }
     public static Optional<User> user003() {
-        return Optional.of(new User(1L, "Oscar", User.Role.USR, null));
+        return Optional.of(new User(1L, "Oscar", null));
     }
 
     public static Optional<Form> form001() {

@@ -1,23 +1,22 @@
 package com.patterson.forms.entities;
 
 import javax.persistence.*;
-import java.lang.String;
 
 @Entity
 @Table(name = "answers")
 public class Answer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String answer;
 
+    private String question;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    private String question;
 
     public Answer(Long id, String answer, User user, String question) {
         this.id = id;
