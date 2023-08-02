@@ -2,9 +2,9 @@ package com.patterson.forms.services;
 
 import com.patterson.forms.entities.Form;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface FormService {
 
-    Optional<Form> getForm(String code);
+    List<Form> findAll();
 }
