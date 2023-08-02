@@ -31,8 +31,6 @@ class FormsApplicationTests {
 	@MockBean
 	AnswerRepository answerRepository;
 
-//	@Autowired
-//	UserService userService;
 	@Autowired
 	FormService formService;
 	@Autowired
@@ -43,12 +41,7 @@ class FormsApplicationTests {
 	}
 
 	@Test
-	void testGetPersonalizedUrlForUser() {
-
-	}
-
-	@Test
-	void testGetFormToAnswer() {
+	void testGetAll() {
 		Form form1 = form001().orElseThrow();
 		Form form2 = form002().orElseThrow();
 		List<Form> data = Arrays.asList(form1, form2);
