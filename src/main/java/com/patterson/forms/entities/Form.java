@@ -1,30 +1,21 @@
 package com.patterson.forms.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "forms")
 public class Form {
 
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private java.lang.String question;
+    private String question;
 
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "form", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Answer> answers = new ArrayList<>();
-
-    public Form(Long id, java.lang.String question, List<Answer> answers) {
+    public Form(Long id, String question) {
         this.id = id;
         this.question = question;
-        this.answers = answers;
     }
 
     public Form() {
@@ -38,24 +29,12 @@ public class Form {
         this.id = id;
     }
 
-    public java.lang.String getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(java.lang.String question) {
+    public void setQuestion(String question) {
         this.question = question;
-    }
-
-    public List<Answer> getAnswer() {
-        return answers;
-    }
-
-    public void setAnswer(List<Answer> answers) {
-        this.answers = answers;
-    }
-
-    public java.lang.String getPartialCode() {
-        return this.question.substring(0,4);
     }
 
 }

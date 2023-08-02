@@ -16,7 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Form name;
+    private String name;
 
     private Role role;
 
@@ -24,14 +24,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
 
-    public User(Long id, Form name, Role role, List<Answer> answers) {
+    public User(Long id, String name, Role role, List<Answer> answers) {
         this.id = id;
         this.name = name;
         this.role = role;
         this.answers = answers;
-    }
-
-    public User(long id, java.lang.String pere, Role adm, Object answers) {
     }
 
     public Long getId() {
@@ -42,11 +39,11 @@ public class User {
         this.id = id;
     }
 
-    public Form getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Form name) {
+    public void setName(String name) {
         this.name = name;
     }
 

@@ -19,10 +19,10 @@ public class Data {
     }
 
     public static Optional<Form> form001() {
-        return Optional.of(new Form(1L, "What is your favorite position?",null));
+        return Optional.of(new Form(1L, "What is your favorite position?"));
     }
     public static Optional<Form> form002() {
-        return Optional.of(new Form(1L, "Are you right hand or left hand?",null));
+        return Optional.of(new Form(1L, "Are you right hand or left hand?"));
     }
 
     public static Optional<Answer> answer001() {
