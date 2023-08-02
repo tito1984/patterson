@@ -17,10 +17,10 @@ public class Form {
     @JoinColumn(name = "user_id", nullable = false)
     private User toUser;
 
-    public Form(Long id, String question, User touser) {
+    public Form(Long id, String question, User toUser) {
         this.id = id;
         this.question = question;
-        this.toUser = touser;
+        this.toUser = toUser;
     }
 
     public Form() {
