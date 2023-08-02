@@ -23,6 +23,10 @@ public class Form {
         this.toUser = touser;
     }
 
+    public Form() {
+
+    }
+
     public User getToUser() {
         return toUser;
     }

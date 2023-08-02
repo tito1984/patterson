@@ -32,6 +32,10 @@ public class User {
         this.forms = forms;
     }
 
+    public User() {
+
+    }
+
     public Long getId() {
         return id;
     }
